@@ -1,0 +1,7 @@
+Installing particular AWS cli version
+    pip install awscli==1.15.19
+Removing the aws cli from the system
+  sudo apt-get remove --auto-remove awscli
+  ln -s /home/ubuntu/.local/bin/aws /usr/bin/aws
+Removing the aws cli from the system using pip
+  pip uninstall awscli -y
