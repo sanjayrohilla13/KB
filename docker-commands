@@ -1,0 +1,38 @@
+Display details of the docker version 
+  docker version
+  
+Display only version number for the docker
+  docker --version
+  
+Display system information for the docker
+  docker system info
+  
+Display the history of an image
+  docker history redis
+  
+sanjay@sanjay03:~$ docker history redis
+IMAGE          CREATED       CREATED BY                                      SIZE      COMMENT
+aea9b698d7d1   2 weeks ago   /bin/sh -c #(nop)  CMD ["redis-server"]         0B
+<missing>      2 weeks ago   /bin/sh -c #(nop)  EXPOSE 6379                  0B
+<missing>      2 weeks ago   /bin/sh -c #(nop)  ENTRYPOINT ["docker-entry…   0B
+<missing>      2 weeks ago   /bin/sh -c #(nop) COPY file:df205a0ef6e6df89…   374B
+<missing>      2 weeks ago   /bin/sh -c #(nop) WORKDIR /data                 0B
+<missing>      2 weeks ago   /bin/sh -c #(nop)  VOLUME [/data]               0B
+<missing>      2 weeks ago   /bin/sh -c mkdir /data && chown redis:redis …   0B
+<missing>      2 weeks ago   /bin/sh -c set -eux;   savedAptMark="$(apt-m…   27.8MB
+<missing>      2 weeks ago   /bin/sh -c #(nop)  ENV REDIS_DOWNLOAD_SHA=5b…   0B
+<missing>      2 weeks ago   /bin/sh -c #(nop)  ENV REDIS_DOWNLOAD_URL=ht…   0B
+<missing>      2 weeks ago   /bin/sh -c #(nop)  ENV REDIS_VERSION=6.2.6      0B
+<missing>      2 weeks ago   /bin/sh -c set -eux;  savedAptMark="$(apt-ma…   4.24MB
+<missing>      2 weeks ago   /bin/sh -c #(nop)  ENV GOSU_VERSION=1.12        0B
+<missing>      2 weeks ago   /bin/sh -c groupadd -r -g 999 redis && usera…   329kB
+<missing>      2 weeks ago   /bin/sh -c #(nop)  CMD ["bash"]                 0B
+<missing>      2 weeks ago   /bin/sh -c #(nop) ADD file:ece5ff85ca549f0b1…   80.4MB  
+
+docker image inspect redis
+docker images
+docker image pull redis
+docker system info
+docker image inspect redis
+docker image ls
+docker image ls -a
