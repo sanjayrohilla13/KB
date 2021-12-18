@@ -37,34 +37,22 @@ docker image inspect redis
 docker image ls
 docker image ls -a
 
-Volumes:
+Getting into a running docker
+docker exec -ti Yashvi-Rohilla-1 sh
+docker exec -ti <Container_Name> <command to Execute>
 
- 1960  docker logs 948
- 1961  docker logs sleepy_pike
- 1962  docker logs
- 1963  docker logs sleepy_pike -f
- 1964  docker logs sleepy_pike -n
- 1965  docker logs sleepy_pike -n 10
- 1966  docker container exec -it sleepy_pike sh
- 1967  docker ps
- 1968  docker service logs 948
- 1969  docker logs 948
- 1970  systemctl docker restart
- 1971  systemctl restart docker
- 1972  docker logs sleepy_pike
- 1973  docker logs nice_fermat
- 1974  ;5R;5R;5R
- 1975  docker logs nice_fermat
- 1976  docker ps
- 1977  docker exec -it 948
- 1978  docker exec -it sleepy_pike
- 1979  docker exec -it sleepy_pike sh
- 1980  docker logs 948
- 1981  docker logs sleepy_pike sh
- 1982  docker logs sleepy_pike
- 1983  docker exec sleepy_pike ls
- 1984  docker logs sleepy_pike
- 1985  configuration of log forward to different solutions is done by specifying in daemon.json file
+Logs:
+Daemon Logs
+
+Container Logs
+docker logs nginxtest
+docker logs 3b76
+* define either the container name or container id for the docker logs
+
+Removing all the containers from the system 
+ docker rm -f $(docker ps -aq)
+ * this command will remove all the active and stopped containers from the host system
+
  1986  docker version
  1987  docker --version
  1988  docker system info
@@ -92,14 +80,21 @@ Creating and mounting new volumes on the new container
   * This process will create the volume vol-test in the docker host system and defined folder "\shared Data" inside the docker and mount the volume on that folder.
   alternatively, you can run the below command:
   docker run -dit --mount source=test-vol,target=/test-vol --name test-cont-2 alpine
- 
+ Adding volume to a running container
+  //Create an image from running container
+  docker commit Yashvi-Rohilla yashvi-rohilla-image
+  //Stop the running container
+  docker stop Yashvi-Rohilla
+  //Spin a new container from the created image with volume definitions
+  docker run -ti -v vol-yashvi:/vol-yashvi --name Yashvi-Rohilla-1 yashvi-rohilla-image
+  // If new container is working fine, delete the previous container
+
 Mounting a volume in read only mode
-docker run -d  --name=nginxtest  --mount source=nginx-vol,destination=/usr/share/nginx/html,readonly   nginx:latest
- * in this mode user can change the files from host system; however, docker is not able to do the same.
+  docker run -d  --name=nginxtest  --mount source=nginx-vol,destination=/usr/share/nginx/html,readonly   nginx:latest
+  * In this mode user can change the files from host system; however, docker is not able to do the same.
   
 Steps for removing the mounted volume
   docker container stop nginxtest
   docker container rm nginxtest
   docker volume rm nginx-vol
  * we can't remove a mounted volume. Docker Daemon will through "in-use" error.
- 
