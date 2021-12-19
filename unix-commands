@@ -5,3 +5,6 @@ Removing the aws cli from the system
   ln -s /home/ubuntu/.local/bin/aws /usr/bin/aws
 Removing the aws cli from the system using pip
   pip uninstall awscli -y
+
+Check ports being used in the host
+sudo lsof -i -P -n | grep LISTEN

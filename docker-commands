@@ -41,6 +41,8 @@ Getting into a running docker
 docker exec -ti Yashvi-Rohilla-1 sh
 docker exec -ti <Container_Name> <command to Execute>
 
+exposing port for the container
+docker run -ti -p <host_port>:<container_port> nginx 
 Logs:
 Daemon Logs
 
@@ -98,3 +100,20 @@ Steps for removing the mounted volume
   docker container rm nginxtest
   docker volume rm nginx-vol
  * we can't remove a mounted volume. Docker Daemon will through "in-use" error.
+
+ ***************************************************************************************
+ *     E R R O R S
+ ***************************************************************************************
+ 1. Error while stopping/killing the containers 
+ Error response from daemon: cannot stop container: jenkins-master: Cannot kill container 7962b7a692d996f1e704382bfb2e24199c7cedc8ad3a000808296934479cc57a: unknown error after kill: runc did not terminate sucessfully: container_linux.go:392: signaling init process caused "permission denied"
+: unknown
+Solution:
+It turned out that AppArmor service was messing up with Docker. AppArmor (or "Application Armor") is a Linux kernel security module that allows the system administrator to restrict programs' capabilities with per-program profiles. For this problem with containers, it helped me to remove the unknown from AppArmor using the following command:
+  sudo aa-remove-unknown
+After that, I was able to stop and kill my containers. To kill all running Docker containers, you can use the following command:
+  docker container kill $(docker ps -q)
+
+If this didn't work for you, you can remove AppArmor, and then install it afterward if it's needed:
+  sudo apt-get purge --auto-remove apparmor
+  sudo service docker restart
+docker system prune --all --volumes
