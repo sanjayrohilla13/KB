@@ -1,3 +1,13 @@
+Getting password for the new container
+git exec jenkins cat /var/jenkins_home/secrets/initialAdminPassword
 
-16adbca390b949d998a265f18f826bcb
-This may also be found at: /var/jenkins_home/secrets/initialAdminPassword
+Adding AWS Credentials on jenkins
+    1. Add "CloudBees AWS Credentials Plugin" using manage plugins
+    2. Come back to the dashboard and Click on any pipeline job and click on <pipeline syntax> on RHS
+    3. Click on <Snippet Generator>
+    4. Select Sample step as <withCredetials:Bind Credentials to variables> 
+    5. Under Bindings, Select <AWS access key and secret>
+    6. Click on <add> on Credentials and click on <Jenkins Credentials Providers>
+    7. Select <AWS Credentials> as Kind and enter ID, Access Key ID and Secret Access Key and click on Add button
+    8. Check in the Credentials, the new Credentials should appear under jenkins Credentials Store
+    9. Try running the job with AWS access
