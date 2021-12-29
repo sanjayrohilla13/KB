@@ -1,5 +1,12 @@
+==============================================================================================================================================================================
+  Getting  P A S S W O R D 
+==============================================================================================================================================================================
+
 Getting password for the new container
 git exec jenkins cat /var/jenkins_home/secrets/initialAdminPassword
+==============================================================================================================================================================================
+  Adding AWS Credentials on Jenkins
+===========================================================================================================================================================================
 
 Adding AWS Credentials on jenkins
     1. Add "CloudBees AWS Credentials Plugin" using manage plugins
@@ -11,3 +18,38 @@ Adding AWS Credentials on jenkins
     7. Select <AWS Credentials> as Kind and enter ID, Access Key ID and Secret Access Key and click on Add button
     8. Check in the Credentials, the new Credentials should appear under jenkins Credentials Store
     9. Try running the job with AWS access
+==============================================================================================================================================================================
+  F O R G O T   P A S S W O R D 
+==============================================================================================================================================================================
+ Forgot password or password not working on jenkins
+    Login to the container in interactive mode
+       docker exec -it jenkins bash
+    Install vi or nano if not exists on the docker
+       apt-get install nano
+    Open the config.xml file and modify the user security flag
+       nano /var/jenkins_home/config.xml
+    change the below line as instructed
+        <useSecurity>true</useSecurity> -> <useSecurity>false</useSecurity> 
+    save the file and exit the session
+    Restart the container
+        docker-compose down
+        docker-compose up -d
+    Jenkin should be able to start without password
+    
+    To reset admin’s password, do the following.
+        Click on People on the left-hand navigation menu.
+        Click on the Admin.
+        Delete the user account.
+        Navigate to Jenkins / Manage Jenkins.
+        Click on Configure Global Security
+        Check the Enable Security check box
+        Under Security Realm, select Jenkins’ own user database
+        In the Authorization section, select Logged-in users can do anything.
+        Unselect Allow anonymous read access.
+        Click Save to save your changes.
+
+    Create New Jenkins Admin User
+        Once you have completed the tasks above, you will be redirect to a page where a new Admin user can be created. Fill in your new details and then click Create First Admin User.
+    You have no created a new Admin user with a new password.
+==============================================================================================================================================================================
+    
