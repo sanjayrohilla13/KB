@@ -1,0 +1,7 @@
+Bringing up the containers defined in the docker-compose.yml file
+ docker-compose up -d 
+ docker-compose -p <project_name> up -d
+    -p indicates project name
+    -d indicates as daemon
+Checking docker logs
+  docker-compose logs --follow
