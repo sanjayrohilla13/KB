@@ -1,1 +1,46 @@
 AS/400 related commands
+QPADEV00FL     User:   USER603        Number:   720590    
+
+select omit topic
+
+https://www.youtube.com/watch?v=wNRLJy4Lmu4
+
+Things to know:
+1. constraints can add to physical file only	
+1. by uniqu constraints, if file has two keys we can put unique for first key also.
+2. Only one primary key constrains can add for a file and can define more than one fields as key
+3. Only one unique key constrains can add for a file and can define more than one fields as key
+
+
+***Journling
+1. CRTJRNRCV  NAME1
+2. CRTJRN (Need to attach jrnreceived which is created earlier)
+3  Strjrn ( need to assign files
+4. dspjrn (will provide all the entries)
+
+CODE - R (Means only records we want to see)
+type -  PT (PUT added record)
+	UB- Update before entry
+	UP- Updated entry
+
+
+
+UNIX :
+cd ..  -> one level down
+cd /  -> will come to root
+cd enter  -> home directory
+
+
+
+
+RPG Call rpg can pass 255 parameters
+rpg to cl 40
+
+UNIQUE key can provide to logical file as well
+  
+
+FTP:
+At command line 
+1. FTP WWW.PUB400.COM
+2. Enter user name and password
+
