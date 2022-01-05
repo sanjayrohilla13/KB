@@ -8,7 +8,15 @@ Removing the aws cli from the system using pip
   pip uninstall awscli -y
   
 Check ports being used in the host
-sudo lsof -i -P -n | grep LISTEN
+  sudo lsof -i -P -n | grep LISTEN
 
 Finding flavour or Linux
-cat /etc/os-release
+  cat /etc/os-release
+
+Add User to specified Group
+sudo gpasswd -a sanjay docker
+  user name is sanjay & group name is docker in the above case.
+  
+Add User to Sudo Group
+  sudo usermod -aG sudo sanjay
+  The -aG option tells the system to append the user to the specified group. (The -a option is only used with G.)

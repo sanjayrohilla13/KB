@@ -1,0 +1,296 @@
+Important points
+terraform init
+    - will initialize the plugins and other important data for the terraform run
+    - from 0.14 onwards, the terraform init will generate a terraform.lock.hd file which will contain
+      the dependencies for the package (version information and hash values)
+    - .terraform directory will be created. It stores the files needed for the provider to operate in the .terraform directory.
+    - terraform.lock.hcl file will be created for ensuring the dependencies. It actually freezes the provider
+      version of deploying to ensure the consistency for all the deployments.
+    - terraform.lock.hcl should be commited to your repository to ensure consistency of the deployment.
+in terraform provider configuration
+    - version = "~> 2.12.0" means, the required version can vary from 2.12.0 to 2.12.9
+      *it means the RHS digit can increase to its max value where other digits remains unchanged)
+      e.g. version = "~> 2.12" means the required version can vary from 2.12 to 2.99
+terraform init -upgrade 
+    - will enforce the latest configuration
+terraform fmt -diff
+    - shows the differences made to the earlier script and keep the code formatted
+
+planning the infrastructure application without plan file
+terraform plan
+
+planning the infrastructure application with plan file plan1
+terraform plan --out=plan1
+
+applying the infrastructure changes without plan file and with confirmation
+terraform apply
+
+applying the infrastructure changes with plan file and without confirmation
+terraform apply plan1
+
+Plan files are encoded file (not encrypted), so in case you are storing the plan files, store them with encryption. else they can be used against your infrastructure.
+
+Simulating the destroy without plan file
+terraform plan -destroy
+
+Simulating the destroy without plan file
+terraform plan -destroy --out=destroyplan1
+
+Executing the planned destruction
+terraform apply destroyplan1
+
+Terraform State File
+    - contains state data for the the instrastructure
+    - name is terraform.tfstate -> contains information for the current run
+    - backup name is terraform.tfstate.backup -> contains information for the previous run
+    - by default statefiles are not encrypted
+    - It is not a good idea to keep the tfstate file as part of code (GIT), rather we save them in backend
+
+list of resources in our statefile
+    - terraform state list
+
+Viewing state file without opening the file using jq
+    - install jq
+        sudo apt install jq
+        terraform show -json | jq
+    state
+    - "terraform show" command allows you to see the complete contents of the state file without opening it manually
+
+Output variable
+    - after applying the infrastructure changes,if only output variables are added, we can display them using the below command:
+      terraform output
+Commenting multiple lines in one shot 
+    ctrl + /
+
+Count object
+    - count object is used for iterative use. For example, generating mulitple containers, generating multiple strings etc.
+    - count can be used with only resource, module and data blocks
+    - count can be used only when it is set
+    - count can't be used with output block
+
+splat expression
+    - used as for loop
+    - represted as * (similar to wild card in linux)
+    - one use can be as in output section 
+        value = docker_container.nodered_container[*].name
+
+For loop
+    - it is proper for loop introduced by HCL
+    - syntax [for i in [list]: operation]
+    - example [for i in [1,2,3,4]: i+1]
+
+terraform taint
+    - a way to replace the resources
+    - command is "terraform taint <resource id>" -> terraform taint random_string.random[0]
+    - "terraform plan" command is recommended after taint
+    - "terraform taint" command can be undo using "terraform untaint" command
+    - "terraform apply" command after "terraform taint" command will apply the changes to the infrastructure
+
+terraform import
+    - sometime, we need to import resources in the terraform state, "terraform import" helps to 
+        do it for us.
+    - Step 1. Add the code for the resource in the terraform script 
+    - Step 2. Run the "terraform import" command to import the resource
+    - Step 3. Check the resources using "terraform state list"
+
+terraform refresh
+    - used for updating the state without running the "terraform apply"
+    - it can be done when someone changed the infrastructure without changing the terraform script
+    - example
+            -   provision two docker container with terraform script
+            -   kill one docker with command "docker rm -f docker2"
+            -   run terraform refresh command and it will update the terraform state for one docker
+            -   however state list may still show some extra resources like random string
+            -   for removing such resources "terraform state rm <resource_name>" is used
+            -   running "terrafrom state rm" command will take one extra backup for the terraform state file for any future actions
++ + + + + + + + + + + + + + + + ++ + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + +  +
+terraform variable
++ + + + + + + + + + + + + + + + ++ + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + +  +
+    - used for storing a value which is supposed to be change
+    - syntax variable "name of variable " { }
+    - all are optional parameters; however, if default value is not defined in the script
+      script will force to enter the value during plan, apply and destroy stages
+    - variables can be passed to the script from below ways
+        -   default in the definition
+        -   using -var <var_name>=<variable_value> with terraform plan, apply and destroy commands
+        -   by setting as the environment variable using the below command
+            $ export TF_VAR_<varibale_Name>=<variable_value>
+            in this case, system will take the env variable value as default for running the script
+            for displaying the env variable, use below command
+            $ echo $TF_VAR_<variable_Name>
+            for unsetting the env variable, use below command
+            $ unset TF_VAR_<variable_Name>
+
+        -   by setting the variable value in the terrform.tfvars file
+    - validation section can be defined in the variable to validate the variable with error message
+    - variable can be defined anywhere in the terraform scripts; however, it is best to keep them in 
+      a seperate file named varibales.tf
+
+map variable
+    - variable that stroes multiple values e,g.
+        image = 
+            {
+            dev = "nodered/node-red:latest"
+            prod = "nodered/node-red:latest-minimal"
+        }
+
+    -   lookup function is used to get values from map varibale type
+        - format for the same is x = lookup(image,"dev")
+        - the value correspoding to the dev will be returned to the x variable.
+
+    -   map variables can be accessed using below format:
+        - x = image[dev] -> passing the key variable in the map field.    
+        - the value correspoding to the dev will be returned to the x variable.
+
+    - deploying the same code with different images can be done with below command 
+        $ terraform plan -var="env=prod" | grep image <deployment to prod>
+        $ terraform plan -var="env=dev" | grep image <deployment to dev>
+
+terraform.tfvars
+    - terrafor.tfvars files are for variable assignment
+    - this file must be in the .gitignore  file, so that they are not commited to the repository
+    - This file override the value defined in the terraform script file
+
+.tfvars
+    - .tfvars files can be used for setting up the values wrt to the environment
+      for example dev, sit and prod uses different ip address/AWS account number
+    - The default tfvars file for the script run is terrfaorm.tfvars; however, you can override the same 
+      by defining in the command as shown under:
+       terraform plan --var-file=sit.tfvars
+    - in case variable is defined on command line and in .tfvars, the lateral variable will take the lateral
+       assignment e.g terraform plan -var ext_port=2050 --var-file=sit.tfvars
+            - the value defined in the sit.tfvars will take precedence
+       terraform plan --var-file=sit.tfvars -var ext_port=2050
+            - the command line definition will take precdence
+    
+sensitive 
+    - sensitive flag is useful, when we want to hide the output or variable information in the terraform
+      run script
+    - syntax -> define the sensitive flag = true for marking the value as sensitive
+    - In the output the variable or output value will not display; rather "sensitive" will appear.
+    - In terraform.tfstate file value can be seen. 
+
+local-exec
+    - used for running the commands locally on the machine
+    - not idempotentive (means it is just a command and statefile doesn't keep track of it)
+    - should be defined in the "null_resource" resource block
+    - Syntax is as under:
+        resource "null_resource" "dockervol" {
+            provisioner "local-exec" {
+            command = "mkdir noderedvol/ || true && sudo chown -R 1000:1000 noderedvol/"
+            }
+        }
+    - any number of commands can be run with && connector
+local variables (locals)
+    - local are used for defining values which are used frequently. 
+    - it allows function calls as well which are not used in variable definitions
+
+max/min function
+    - used for finding max or min number from the list of elements
+    - max(10,20,30) -> return 30 
+    - similarly, for lists, we can use max([10,20,30]...) -> return 30 
+    - ... is known as expandable and is used to present the elements of list as individual elements
+
+path.module
+    - "path.module" is used for getting workspace infomration
+    - "path.cwd" returns current working directory
+    - "path.module" returns path of module directory in current project
+
+string interpolation
+    - use of variable inside the string
+    - " My name is ${name}"
+    - the value of the "name" variable will be interpolated in the above string.
+
+terraform workspaces
+    - used for managing the different environments simultaneously
+    - creation of workspace creates below directory structure
+        terraform.tfstate.d -> dev -> terraform.tfstate
+                            -> prod-> terraform.tfstate
+    - every time we deploy resources in workspace, system updates the tfstate file in correspoding library
+    - commands for the same are as under:
+        - terraform workspace new <workspace Name>  - creating and switching to the workspace
+        - terraform workspace show                  - to know the current workspace
+        - terraform workspace list                  - to list all the available workspaces
+            *denotes the current workspaces
+        - terraform workspace select <WS name>      - to switch to the required workspace 
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+modules in terraform
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+module
+    - modules are used to define consistent properties for the resource
+    - To start with creating the module, create a directory for the module definition 
+    - create all the important files, like providers.tf, variables.tf,
+      outputs.tf, main.tf files in a the module directory.
+    - copy the provides definition in providers.tf file
+    - define the resource in the main.tf in module library
+    - reference the module/main.tf file in the main.tf in root module for function with below syntax
+      module "image" {
+        source = "./image"
+      }
+
+getting values/attributes from modules
+    - For using some attribute or variable from the module, variables needs to be referenced via 
+      output.tf from module directory.
+    - the module variables are referenced with below syntax
+        image = module.image.image_out
+
+passing parameters to the module
+    - for passing parameters to module, we need to pass the varaible exactly after module source definition
+      in main.tf 
+      module "image" {
+        source = "./image"
+        image_in = var.image[terraform.workspace]
+      }
+    - the "image_in" variable will be passed to the "image" module.
+      resource "docker_image" "nodered_image" {
+        name = var.image_in
+      }
+    - the variable "var.image_in" needs to be defined in the variable section of the module.
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+terraform graph
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+terraform graph 
+    - represents the resource and dependency infomration in the form of graph
+    - as plain output information is not so readable; however with graphviz tool, it is very informative
+    - install graphviz with "sudo apt intall graphviz" command
+    - generating various graphs:
+        - Plan stage    $ terraform graph | dot -Tpdf > graph-plan.pdf
+        - apply stage   $ terraform graph -type=apply | dot -Tpdf > graph-apply.pdf
+        - destroy stage $ terraform graph -type=plan-destroy | dot -Tpdf > graph-destroy.pdf
+    - graphviz allows to run the option of generating the output in jpeg, jpg and other formats etc.
+    - graph can help to resolve various dependency issues.
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Identifying and resolving dependencies in terraform script
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    - Find out the graph (apply) for the script
+    - look for any dependecy issues
+    - dependency issues can be resolved in two ways 
+        - intrinsic dependencies
+            - by defining some attribute of the dependent resource in the required resource
+              name  = join("-", ["nodered", terraform.workspace, null_resource.dockervol.id ,random_string.random[count.index].result])
+              * here dockervol (docker volume) is required for container creation, so the id of the dockervol
+                is included in the docker name. For container creation, terraform will wait for the volume creation.
+            
+        - external dependencies 
+            - it is imposed on some resource by adding "depends on" clause in resource creation.
+                "depends on = [null_resource.dockervol]"
+                * as explained in the intrinsic dependency, above statement will work exactly same.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Docker in terraform
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Pulling Image
+Running Container
+adding volume to docker
+
+
+
+terraform destroy --auto-approve && terraform apply --auto-approve
+    - it will recreate the infrastructure exactly after destroing
+
+
+
+
+terraform-documentation
+    - for docker    terraform.io/docs/providers/docker
