@@ -184,12 +184,17 @@ local-exec
 local variables (locals)
     - local are used for defining values which are used frequently. 
     - it allows function calls as well which are not used in variable definitions
-
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Functions in terrafrom
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 max/min function
     - used for finding max or min number from the list of elements
     - max(10,20,30) -> return 30 
     - similarly, for lists, we can use max([10,20,30]...) -> return 30 
     - ... is known as expandable and is used to present the elements of list as individual elements
+flatten function
+    - used for combinging two lists into one.
+        - flatten([["a", "b"], [], ["c"]]) -> ["a", "b", "c",]
 
 path.module
     - "path.module" is used for getting workspace infomration
