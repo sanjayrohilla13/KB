@@ -20,3 +20,8 @@ sudo gpasswd -a sanjay docker
 Add User to Sudo Group
   sudo usermod -aG sudo sanjay
   The -aG option tells the system to append the user to the specified group. (The -a option is only used with G.)
+
+Fix broken packages
+  sudo apt --fix-missing update
+  sudo apt update
+  sudo apt install -f

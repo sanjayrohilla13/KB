@@ -232,6 +232,7 @@ module
       module "image" {
         source = "./image"
       }
+    - on creation of each module terraform needs to be initialized.
 
 getting values/attributes from modules
     - For using some attribute or variable from the module, variables needs to be referenced via 
@@ -282,6 +283,42 @@ Identifying and resolving dependencies in terraform script
             - it is imposed on some resource by adding "depends on" clause in resource creation.
                 "depends on = [null_resource.dockervol]"
                 * as explained in the intrinsic dependency, above statement will work exactly same.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Docker volume in terraform
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    - volumes in docker can be created in different ways:
+        - with local-exec by first creating the directory and then attaching the same with the container
+        - by defining the volume_name in "docker_container" resource with below two attributes
+           - container_path 
+           - volume_name
+           While creating the container, terraform will create the docker volume and will not destroy on destroy commands
+        - by defining docker_volume resource and adding the name of the volume to the volume_name in the docker_container resource
+           In this arrangement, the volume will be destroyed with the destroy command; however, we can control this
+           by stating a lifecycle block as under in the volume resource:
+           "lifecycle {prevent_destroy = true}"
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Using one image module to deploy mutliple container images
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+We can deploy multiple images using one image module
+    1. first of all, create a duplicate block of the image module block with new name
+    2. change the image variable for two level list
+        default  = 
+            image1 = {
+                dev = "image1-dev-path"
+                prod = "image1-prod-path"
+            }
+            image2 = {
+                dev = "image2-dev-path"
+                prod = "image2-prod-path"
+            }
+        } 
+    3. change the image variable reference in the main module 
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Lessions to repeat
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    - 60 - For_each
+    - 61 - application of For_each
+    - 62 onwards
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 Docker in terraform
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

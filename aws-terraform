@@ -1,0 +1,136 @@
+Terraform Remote state files
+    - remote states can be maintained in S3 and terraform cloud apart from local
+    
+terraform Cloud for remote state storage
+    - state is saved at terraform Cloud
+    - terraform have a feature of state lock also, after locking resource can neither be changed nor destroyed
+    - "terraform state list" and "terraform show" are useful for finding out the state and resouces of the infra-
+        structure without logging into the cloud.
+
+resources
+    - random_shuffle
+        - This resource help to get random list of elements from a given list
+        - syntax & example
+            resource "random_shuffle" "az-list" {
+                input = data.aws_availability_zones.available.names
+                result_count = var.max_subnets
+            }
+        - This resource will create a list of availablity zones of count var.max_subnets. 
+    - random_integer
+        - This resource is used to generate number between minimum and maxmimum.
+        - syntax and example    
+            resource "random_integer" "random" {
+                min = 1
+                max = 100
+            }
+
+    - aws_vpc
+        - This resource is used for creating AWS VPC
+        - creation of vpc needs below parameters
+            - cidr_block 
+            - enable_dns_hostnames = true
+            - enable_dns_support = true
+            - tags {
+                    Name = <vpc name>
+               }
+            - lifecycle {
+                create_before_destroy = true
+            }   
+            - lifecycle block is used handle the cases where dependency on resourse exists, e.g. 
+              if we change the cidr range for the vpc and apply the changes, terraform needs to destroy the 
+              resources and recreate them; however, igw depends on vpc and after vpc it will hang aroud and will
+              not find its vpc becuase it is already destroyed. So the process will hang. 
+              defining the "create_before_destroy=true" will create a new vpc with the new cidr range before destroying
+              the existing cidr range.
+
+    - aws_subnet
+        - This resource is used for creation of subnets in aws
+        - subnets needs below parameters
+            - vpc id
+            - cidr range
+            - availablitiy_zone
+            - map_on public_ip_on_launch = true (for public subnet) and false for private subnets
+    - Data Source
+        - This resource is used for getting data from various sources
+        - syntax and example
+            data "aws_availability_zones" "available" {
+                state = "available"
+            }
+    - aws_internet_gateway
+        - used for creating the internet gateway    
+        - syntax and example
+            resource "aws_internet_gateway" "skr_internet_gateway" {
+                vpc_id = aws_vpc.skr_vpc.id
+                tags = {
+                Name = "IGW-Public"
+                }
+            }
+    - aws_default_route_table
+        - This resource is already created and used for making the table private
+        -  syntax and example
+            resource "aws_default_route_table" "skr_private_rt" {
+                default_route_table_id = aws_vpc.skr_vpc.default_route_table_id
+                tags = {
+                    "Name" = "skr_private"
+                }  
+            }
+    - aws_route_table
+        - This resource is used for creating new route table for AWS systems
+        - syntax and example
+            resource "aws_route_table" "mtc_public_rt" {
+                vpc_id = aws_vpc.skr_vpc.id
+                tags = {
+                Name = "skr_public_route_table"
+                }
+            }
+    - aws_route_table_asspciation
+        - used for associating the route table with the subnets
+        - example and syntax
+            resource "aws_route_table_association" "skr_public_rt_ass" {
+                count = var.public_sn_count // for connecting to all the public subnets
+                subnet_id = aws_subnet.skr_public_subnet.*.id[count.index]
+                route_table_id = aws_route_table.mtc_public_rt.id
+            }
+    - aws_route
+        - used for connecting the default route
+        - syntax and examples
+            resource "aws_route" "default_route" {
+                route_table_id = aws_route_table.mtc_public_rt.id
+                destination_cidr_block = "0.0.0.0/0"
+                gateway_id = aws_internet_gateway.skr_internet_gateway.id    
+            }
+        
+    - security groups
+        - used for creating security group with ingres and egress rules
+        - syntax and examples
+            # creating Security group for public subnet
+            resource "aws_security_group" "skr_sg" {
+                name = "public_sg"
+                vpc_id = aws_vpc.skr_vpc.id
+                ingress {
+                    from_port = 22
+                    to_port = 22
+                    protocol  = "tcp"
+                    cidr_blocks = [var.access_ip]
+                }
+                egress {
+                    from_port = 0
+                    to_port = 0
+                    protocol = "-1"
+                    cidr_blocks = ["0.0.0.0/0"]
+                }
+                }
+Terraform Functions 
+    - range(str_number, end_number, step)
+        - returns the numbers between the given range and step.
+    - cidrsubnet("prefix", new_bits ..)
+        
+        
+-- revise again
+- cidrsubnet
+- 83 - VPC Security Group Dynamics
+
+
+
+
+

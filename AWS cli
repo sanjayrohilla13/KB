@@ -1,0 +1,6 @@
+Installing required AWS Cli version using pip 
+apt-get update && apt-get install -y docker-ce-cli && apt install python3-pip -y && pip install awscli==1.15.19
+check with command
+    aws --version
+restart the machine if still showing not installed
+
