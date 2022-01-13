@@ -8,4 +8,4 @@ checking version
 passing parameters from jenkins file to Makefile
 	- assign the value in environment variable
 	- these values will be available in Makefile for further processing
-	- example for the same is in github under repo 
+	- example for the same is in github under repo <makefile-parameter-passing>
