@@ -25,3 +25,9 @@ Fix broken packages
   sudo apt --fix-missing update
   sudo apt update
   sudo apt install -f
+
+removing service from autostart
+  for ubuntu, remove the link from /etc/rc*.d library using the below command
+    update-rc.d -f proftpd remove
+  for stopping the service
+    /etc/init.d/proftpd stop
