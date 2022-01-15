@@ -31,3 +31,44 @@ removing service from autostart
     update-rc.d -f proftpd remove
   for stopping the service
     /etc/init.d/proftpd stop
+
+Checking whether port is open or not in Linux
+  - Open a Linux terminal application
+  - Use ss command to display all open TCP and UDP ports in Linux.
+      - sudo ss -tulpn
+
+
+  - Another option is to use the netstat command to list all ports in Linux.
+      - sudo netstat -tulpn | grep LISTEN
+        Where,
+        -t : All TCP ports
+        -u : All UDP ports
+        -l : Display listening server sockets
+        -p : Show the PID and name of the program to which each socket belongs
+        -n : Don’t resolve names
+        | grep LISTEN : Only display open ports by applying grep command filter.
+  - Apart from ss/netstat one can use the lsof command to list open files and ports on Linux based system.
+      - sudo lsof -i -P -n | grep LISTEN
+        Where,
+        -i : Look for listing ports
+        -P : Inhibits the conversion of port numbers to port names for network files. Inhibiting the conversion may make lsof run a little faster. It is also useful when port name lookup is not working properly.
+        -n : Do not use DNS name
+        | grep LISTEN : Again only show ports in LISTEN state using the grep command as filter.
+  - Finally, one can use nmap command to check TCP and UDP ports too.
+        nmap command is an open source tool for network exploration and security auditing. We are going to use nmap to find and list open ports in Linux:
+        $ sudo nmap -sT -O localhost
+        $ sudo nmap -sU -O 192.168.2.254 ##[ list open UDP ports ]##
+        $ sudo nmap -sT -O 127.0.0.1 ##[ list open TCP ports ]##
+        $ sudo nmap -sTU -O 192.168.2.24
+
+    The open port doesn’t mean anyone from outside can access those ports
+    So far, you know how to find and list open TCP and UDP ports on Linux. However, those ports 
+    can still be blocked by software, cloud, or hardware firewall. Hence, you need to verify that
+    your corporate firewall is not blocking incoming or outgoing access. For instance on Linux 
+    server we list or dump firewall rules using the following syntax:
+      sudo iptables -S
+      # IPv6
+      sudo ip6tables -S
+
+
+
