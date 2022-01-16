@@ -1,0 +1,15 @@
+*date          *time   *user - will give all these on screen
+exfmt - write and read display file record format
++3(x) or +i - input field x stand for size
++6(x) or +i - output field
++9(x) or +i - both(input/output)
+https://www.youtube.com/watch?v=sXZ_HH7Qx2k&list=PL-cQM7QhBjZS3hm1csixmnUQzTmFc9RX5&index=2
+on screen, database field can get by pressing F10 and can select
+on screen &1l &2l will put the field on screen with label
+main steps:
+clear subfile :
+   clear indicator must be on
+   write ctrfmt
+   rrn  = 0
+   clear indicator must be off
+   

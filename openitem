@@ -1,0 +1,14 @@
+Is it possible to use SQL in CL programs
+messages in cl
+cpf000 abd cpf9999
+user defined command
+INFSR(*PSSR)
+Name three types of access path maintenance
+What is the diff between tables and array?
+3. Notify the wrong steps in the following.
+a. OVRDBF b. OPNQRYF c. OVRDBF d . OPNQRYF 
+ OPNQRYF OVRDBF OPNQRYF OVRDBF 
+ CALL PGM CALL PGM CALL PGM CALL PGM 
+ CLOF DLTOVR DLTOVR CLOF 
+ DLTOVR CLOF CLOF DLTOVR 
+a and b are correct steps. 
