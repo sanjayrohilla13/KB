@@ -117,3 +117,16 @@ If this didn't work for you, you can remove AppArmor, and then install it afterw
   sudo apt-get purge --auto-remove apparmor
   sudo service docker restart
 docker system prune --all --volumes
+
+
+
+
+Issues:
+After installing docker everytime I need to use sudo before docker commands else below errors comes:
+  Got permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: Get http://%2Fvar%2Frun%2Fdocker.sock/v1.24/containers/json: dial unix /var/run/docker.sock: connect: permission denied
+Reason:
+  User doesn't have permission to the docker socket : var/run/docker.sock. Sock file normally have 660 permissions for docker user and its group members
+Solution:
+  add the user to the docker group
+  sudo gpasswd -a sanjay docker 
+
