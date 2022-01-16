@@ -1,3 +1,10 @@
+Creating Alias
+  - used for running a very long command with some short word. e.g.
+      $ alias tform="docker run --rm -it -v $PWD:/data -v /var/run/docker.sock:/var/run/docker.sock -v /var/lib/docker:/var/lib/docker -w /data hashicorp/terraform:light"
+  - it will be used as under
+      $ tform plan
+        Here the tform will run as equal to "docker run --rm -it -v $PWD:/data -v /var/run/docker.sock:/var/run/docker.sock -v /var/lib/docker:/var/lib/docker -w /data hashicorp/terraform:light" 
+  - add the alias to the ~/.bashrc file for using it in all sessions       
 Installing particular AWS cli version using pip install
     apt install python3-pip -y
     pip install awscli==1.15.19
@@ -69,6 +76,53 @@ Checking whether port is open or not in Linux
       sudo iptables -S
       # IPv6
       sudo ip6tables -S
+-----------------------------------------------------------------------------------------------------
+               SSH configuration
+-----------------------------------------------------------------------------------------------------
+Secure Shell is normally shipped with the Ubuntu machine; however, sometime it doesn't work.
+   Issue - "ssh: connect to host 192.168.1.108 port 22: Connection refused" while trying to connect with the remote machine
+   Cause - The remote server didn't had openssh-server
+   solution - 
+      - Install the openssh-server on the remote machine
+      $ sudo apt install openssh-server
+
+Configuring passwordless communication on two machines
+    Remote machine  - 192.168.1.108
+    Local machine   - 192.168.1.101
+
+we want to setup passwordless communication from Local Machine to remote machine
+    1. Login to local machine
+    2. Create Create Authentication SSH-Keygen Keys 
+        ssh-keygen -t rsa  <ENTER>
+
+        Generating public/private rsa key pair.
+        Enter file in which to save the key (/home/tecmint/.ssh/id_rsa): [Press enter key]
+        Created directory '/home/tecmint/.ssh'.
+        Enter passphrase (empty for no passphrase): [Press enter key]
+        Enter same passphrase again: [Press enter key]
+        Your identification has been saved in /home/tecmint/.ssh/id_rsa.
+        Your public key has been saved in /home/tecmint/.ssh/id_rsa.pub.
+        The key fingerprint is:
+        5f:ad:40:00:8a:d1:9b:99:b3:b0:f8:08:99:c3:ed:d3 tecmint@tecmint.com
+        The key's randomart image is:
+        +--[ RSA 2048]----+
+        |        ..oooE.++|
+        |         o. o.o  |
+        |          ..   . |
+        |         o  . . o|
+        |        S .  . + |
+        |       . .    . o|
+        |      . o o    ..|
+        |       + +       |
+        |        +.       |
+        +-----------------+
+
+  3. Upload SSH Key to remote machine
+     $ ssh-copy-id sanjay@192.168.1.108
+  4. Try to login to remote machine using below command without password
+     $ ssh sanjay@192.168.1.108
+     If ssh connects successfully the SSH is configured
+
 
 
 
