@@ -1,0 +1,7 @@
+alpine linux
+    - Installing pip (PIP Installs Packages)
+        - apk add py3-pip
+        - This will install pip  in the alpine system
+    - Updatating pip in alpine linux
+        - pip install --upgrade pip
+        

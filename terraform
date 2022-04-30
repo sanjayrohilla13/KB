@@ -370,3 +370,8 @@ terraform destroy --auto-approve && terraform apply --auto-approve
 
 terraform-documentation
     - for docker    terraform.io/docs/providers/docker
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Installing particular version of the terraform
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+https://cloudkul.com/blog/how-to-install-terraform-on-ubuntu-18-04/

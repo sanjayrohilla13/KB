@@ -1,3 +1,14 @@
+Disk Usage Information
+- du -hs /directory_name
+  - will display the size of the directory 
+- du -h /directory_name
+  - will display the size of each path in the directory 
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+CPU and Memory information
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+cat /proc/cpuinfo
+
+
 Creating Alias
   - used for running a very long command with some short word. e.g.
       $ alias tform="docker run --rm -it -v $PWD:/data -v /var/run/docker.sock:/var/run/docker.sock -v /var/lib/docker:/var/lib/docker -w /data hashicorp/terraform:light"
@@ -122,7 +133,10 @@ we want to setup passwordless communication from Local Machine to remote machine
   4. Try to login to remote machine using below command without password
      $ ssh sanjay@192.168.1.108
      If ssh connects successfully the SSH is configured
-
-
-
-
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Adding new folder to $PATH
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+#open the bash profile file
+nano .bashrc
+#add sonar-scanner path to the $PATH variable
+export PATH="/home/sanjay/Documents/devops/project-data/sonar-scanner-4.6.2.2472-linux/bin:$PATH"
