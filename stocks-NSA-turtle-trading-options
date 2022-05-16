@@ -1,0 +1,64 @@
+Options are inherently risky
+
+Selling Strangle
+
+Setup
+    - Hourly chart for Weekly Expiry
+    - Daily Chart for Monthly Expiry
+    - Use Standard Deviation for daily chart with 10 perids
+    - Initiate Sell if the Postivie Cusp starts falling
+    - Don't do it at bootom
+    - For finding range - Take 30 min chart on weekly expirt
+    - Check for major Resistance and draw lines for range
+    
+
+    Remedy/Exit 
+        - If the combined premium is increasing the average, then either exit of take remedial  
+          action.
+        - Remedial Action
+            - Buy overnight put for far option
+            - Buy Far call option
+
+ Buying Options
+    Setup:
+        - Plot Boilenger band for 10 and 1 (SD) on 15 min chart on Bank nifty
+        - Look for squeeze in the boilenger band and buy if the price breaks in either direction
+        Exit
+        - either one percent of the move on the bank nifty
+        - If price breaks the opposite boilenger band line
+        - Keep it for one or two days
+        - Don't mix it with anything
+
+ Low Risk Stratergy
+        - Look for trending share with low volatitilty 
+        - eg. WIPRO
+        - Add Keltner Channel Indicator of 10 periods
+        - When price breaks the upper keltner channel sell PE of lower Keltner Channel
+        - SL
+            - When price break middle line, buy a cover for the Sold PE or exit
+            - SL is when price breaks white line
+
+
+Identifying Trend
+    - Drawing 200 DMA & 50 DMA 
+    - If both of the above are downward pointing means it is in downtrend
+    - If both of the above are upward pointing means it is in Uptrend
+
+Fib should be applied always on line chart 
+It is good for using in Intraday Chart
+
+
+Fib Retrachment 
+22.6
+38.2
+50
+61.8
+
+Fibnoacii Extenstion Precentages
+161.8
+261.8
+423.6
+
+Fib Retrachment - is always applied on correction (Correction)
+Fib Extension is always on Impulse
+

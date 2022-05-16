@@ -1,0 +1,10 @@
+Problems:
+1. Not able to run the command to become root
+    
+    COMMAND :  ansible all -m yum -a "name=git" -b
+    OUTPUT  :
+    172.31.33.166 | FAILED! => {
+       "msg": "Missing sudo password"
+
+   Solution : Add the below entry for the ansible user in sudoers file "Allow root to run any commands anywhere"
+              ansiadmin ALL=(ALL)         NOPAWWWD: ALL

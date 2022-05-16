@@ -1,0 +1,125 @@
+Reversal Trading Stratergies
+
+RSI Divergence
+
+Relative Strength Indicator
+Specification
+    - It is a leading indicator
+    - It works on all time frames
+    - Trade should be decided based on the line chart
+    - Selection
+        - 14 periods
+        - No avgs required
+        Interpretation
+            - LT 30 -> Over sold   - Doesn't indicate a sell in the stock
+            - GT 70 -> Over bought - Doesn't indicate a buy in the stock
+    
+    Definition of RSI Beasrish Divergense
+        - Complete model
+        - Uptrend in the stock
+        - Higher Peaks on price
+        - Lower corresponding  peaks on RSI
+        - Sell on Support Break (closing basis)
+        - Stop Loss on Support + ATR (10 Periods)
+        - Target will be On next Support
+        - Divergence happen in trend reversal on market 
+        - Multiple Degree Diversgence are more trustable
+        - Use Futures for selling not OPTIONS
+        - Don't trade on hidden/partial divergense
+        - Intraday trades will be 1:2
+        - RPT = Risk Capitol/50
+        - Prepare sepearate Sheets
+
+    Definition of RSI Bullish Divergense
+        - Downtrend in the stock
+        - Lower Bottoms on price
+        - Higer Bottoms on RSI
+        - Buy on Next Support Break (closing basis)
+        - Stop Loss on Support + ATR (10 Periods)
+        - Target will be On next Support
+        - Divergence happen in trend reversal on market 
+        - Multiple Degree Diversgence are more trustable
+
+Momementum Investing:
+    1. Keep Seperate account for Trading and Investing 
+    2. Keep Stage 2 (Youth Phase) stocks in your account
+
+    Entry Criteria
+        1. Company should be from Nifty 500
+        2. We should enter in the 2nd stage (i.e. When Stage tranisition form 1 to 2) 
+            - Stock is making higher lows
+            - Resistance Breaking
+            - Pattern Formation
+        3. Stock should have Relative Momentum
+            - Should outperform nifty (Use Comparative RSI/Relative Strength Comparision)
+            - use 100 period moving average on Comparative RSI
+        4. Allocation should be perfect
+        
+
+            
+        3. Be in the stock until it make double tops in Weekly or Monthly charts
+        4. Don't keep 4th stage stocks (Lower Bottoms)
+         
+Garry Antonochi
+Dual Momentum
+1:11
+
+
+Double Top Reversal Pattern
+
+Criteria
+    - Two almost equal peaks followed by an Uptrend
+    - It should be seen in line chart of any time range
+
+Trade Setup
+    - Entry should be made after the double top formation and M letter formation, when price breaks the valley between
+      top.
+    - Stop loss shoule be on ATR
+    - Target will be major support 
+    - Take trade which have risk: rewards ratio of 1:3 or higher
+
+Double Bottom Reversal Pattern
+
+Criteria
+    - Two almost equal bottoms followed by an downtrend
+    - It should be seen in line chart of any time range
+
+Trade Setup
+    - Entry should be made after the double bootom formation and W letter formation, when price breaks the top between
+      top.
+    - Stop loss shoule be on ATR
+    - Target will be major Resistance 
+    - Take trade which have risk: rewards ratio of 1:3 or higher
+
+
+|---------------------------------------------------------------------------------------------------
+|Volume based trading                                                                              |
+|---------------------------------------------------------------------------------------------------
+
+1. Selling Climax
+
+Criteria
+    - When Price Suddenly falls with increase in volume
+    - Wait until the price is settled to bottom and volume starts to fall
+    - Buy with low quantity with strict stop loss
+    - Chart should be checked on 1 day, 30 min or 60 min time frames
+
+Trade Setup
+    - Buy order should be executed when volume starts to fall and price starts to increase
+    - Strict stop loss should be on low of the fall
+    - Target will be next major Resistance 
+    - Take trade which have risk: rewards ratio of 1:3 or higher
+
+
+2. Peak Volume Breakout
+
+Criteria
+    - When sharp increase in volume (around 5 times of 10 days avg volume) happens and 
+      not much increase in price
+    - Draw a resistance line on the chart and wait for the price to breakout above this line  
+    - Normally happens in the low volume stocks
+
+Trade Setup
+    - Buy order should be executed when price cross the breakout 
+    - Stop Loss should be on ATR
+    - Target should be on next resistance

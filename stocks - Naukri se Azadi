@@ -103,3 +103,63 @@ Swing Trading
         Stop loss - the closing price of the both candles (closing basis)
         Target    - On the closing of the 5th candle after second candle
         * Dont keep the position after 5 days
+
+(From Turtle Trading Session 3 - Postiional )
+
+Refined Swing Trading
+    - Based on Mean Reversion
+    - We will use 3 Moving Averager
+        -   3 DEMA
+        -   5 DEMA
+        -   20 SMA
+    - Candle Sticks on the stock
+    - Minimum time frame should be Daily or 60 Minutes
+    - Don't use this for Options trading
+
+Method
+    SELL Side Trade
+    - There should be a upward Swing
+    - Apply 3 DEMA and 5 DEMA
+    - Look for Leftout candle (Candle not touching any of the line)
+    - Candle should be completly out of the 3 DEMA and 5 DEMA
+    - It can be any colour
+    - If next candle is RED candle, Sell on the Red Candle Close
+    - SL will be close of previous close (Leftout Candle)/Current Candle (Whichever is higher)
+    - Plot 20 DMA, if the disection of 20 DMA is close to the buy or sell, don't take the trade because this setup was to get the price to the intersection of the 20 DMA and 3 DEMA and 5 DEMA.
+
+    BUY Side Trade
+    - Downward Swing should be there
+    - Apply 3 DEMA and 5 DEMA
+    - Look for Leftout candle (Candle not touching any of the line)
+    - Candle should be completly out of the 3 DEMA and 5 DEMA
+    - It can be any colour
+    - If next candle is Green candle, Buy on the Red Candle Close
+    - SL will be close of previous close (Leftout Candle)/Current Candle (whichever is higher)
+    - Plot 20 DMA, if the disection of 20 DMA is close to the buy or sell, don't take the trade because this setup was to get the price to the intersection of the 20 DMA and 3 DEMA and 5 DEMA.
+
+    EXIT CRITERIA
+        - Leave the trade when the price reach close to the intersection of the 20 DMA, 3 DEMA and 5 DEMA
+        - Exit the price to close below 5 DEMA.
+        - SL will be close of previous close (Leftout Candle)/Current Candle (whichever is higher)
+
+
+(From Turtle Trading Session 3 - Postiional )
+    Kentler Channel Based Trend Following Stratergy
+    - Look for a stock in trending 
+    - Setup the Kentler Chaneel with 10 period
+    - Wait for price to touch the middle line of the Kentler Channel
+    - Wait for the price to close above middle line (Colour not Important)
+    - As the above two conditions happens, trigger the buy with SL on Lower Line
+    - As price moves to Upper Line, move the SL/Target to close below Middle line.
+    - Exit will be done when Price close below Middle Line
+
+    It can be used for taking Sell Side Trades as well
+
+
+Rubberband Reversal Stratergy
+    - Place the Resistance and Support Lines
+    - If the price has crossed the Breakout, but not able to sustain for couple of days
+    - Start a Sell trade if the price closes below the resistance line with SL of the the Breakout close
+    - Target will be on the Bottom between the Recent tops
+
+

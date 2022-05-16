@@ -1,0 +1,53 @@
+OBV - On Balance Volume
+- Volume should be checked with price
+    - Volume increase with price (Normal Understanding)
+    - Volume decrease with fall in price (Normal Understanding)
+ - Exception
+ Selling Climax
+    - Increase in volume with drop in price - It shows panic in retailer
+        * wait for the volume to get down to normal or low
+        * Buy on green candle and put a stop loss on the lowest low
+        * Wait for pull back
+        * Target will be next resistance
+ Volume Breakout
+    - Increase in volume with breakout
+    - It confirms the pattern
+    - Always wait for volume confirmation
+
+ Peak Volume Breakout
+    - Look for the volume at higher price
+    - wait for that breakout to happen and buy at that price
+    - SL at ATR or 1.5 ATR
+    - Target will be next resistance   
+
+    Screener - 20 times of 10 day average volume 
+               10 times of 10 day average volume
+
+
+OBV
+    - OBV is an indicator not a pattern
+    - OBV is a combination of Volume and Price. It is not a good indicator for exit price.
+    - It is complete model
+    - OBV is meant to enter at right time. 
+    - Look for OBV Breakouts and enter in the trade.
+    - Best model is when OBV is depressed and then there is substantial rise in the OBV
+    - Very good for trading in Bank nifty on 30 min chart
+
+    * Break down
+        - When valley between two down peaks breaks down
+        - Quit the position; don't take any position unless the OBV break out happens.
+
+
+Trailing Stop Loss
+    - Starting SL  - use ATR after Breakout
+    - After Profit - PSAR (Parabolic Stop and Reverse) 
+        parameters for psar
+            initial   0.02
+            increment 0.02
+            Maximum   0.2  
+    - Can be used for Investing as well
+
+
+    
+
+    

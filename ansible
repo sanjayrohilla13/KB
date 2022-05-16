@@ -7,15 +7,16 @@ Setting up ansible-control-node
         - Perm Change   vi /etc/hostname -> change the hostname as "ansible-control node" -> save   
                         and quit
     - Create new user for ansible (it is good to have a different user profile for ansible)
-         - useradd ansibleadmin
-         - userpwd ansibleadmin@123
+         sudo adduser ansibleadmin
     - add new user to sudoers file
          - visudo
          - append new user at "Allow root to run any commands anywhere
-           ansadmin ALL=(ALL)         NOPAWWWD: ALL
+           ansiadmin ALL=(ALL)         NOPAWWWD: ALL
          - save the sudo file and quit
-    - switch to the ansadmin
-         - sudo su -ansadmin
+        ALTERNATIVELY you can execute the below command
+          sudo usermod -aG sudo username
+    - switch to the ansiadmin
+         - sudo su -ansiadmin
 useruser
     - Create ssh key
         - ssh-keygen
@@ -26,6 +27,8 @@ useruser
         - switch to root user
         - vi /etc/ssh/sshd_config
         - search the "PasswordAuthentication" and set that as "yes" and comment the "No" part
+        - add the ansible user in  sudoers by adding the user in the "Allow root to run abt commands
+          ansiadmin:        ALL=(ALL)       NOPASSWD: ALL
         - save the file and exit the file. 
         - restart the ssh service -> service sshd restart
 
@@ -40,6 +43,45 @@ Setup Managed Nodes
 
 Setup Passwordless login between control and service node
     1. ssh-add 
+
+
+Ansible Adhoc Commands
+  - ping    ->  ansible all -m ping
+  - command ->  ansible all -m command -a "uptime"
+  - stat    ->  ansible all -m stat
+  - yum     ->  ansible all -m yum -a "name=git" -b
+  - user    ->  ansible all -m user -a "name=sanjay" -b
+  - setup   ->  ansible all -m setup
+
+Inventory file:
+
+Inventory file is a collection of hosts (nodes) which are managed by ansible control node.
+
+> normally individual users use their own inventory file during testing
+
+It can be defined in the following ways:
+> default location  /etc/ansible/hosts
+> user -i option : ansible -i my_hosts
+> defined in ansible.cfg file 
+
+Changing the default inventory file location:
+> modify the ansible.cfg file defaults for the new file name
+[defaults]
+#inventory       = /etc/ansible/hosts
+change the above line as undercat ->
+inventory       = /home/ansiadmin/hosts
+
+
+
+
+GROUPS in Inventory file
+> used for executing the playbook on similar servers
+> defined by using [<group-name] in the inventory file
+> Group name can be used to run the playbook
+  ansible <group-name> -m ping
+
+
+
 
 
 
