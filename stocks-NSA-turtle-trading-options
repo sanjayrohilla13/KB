@@ -2,6 +2,8 @@ Options are inherently risky
 
 Selling Strangle
 
+Liquidity is identified as the difference between the buying and selling price (spread)
+
 Setup
     - Hourly chart for Weekly Expiry
     - Daily Chart for Monthly Expiry
@@ -10,6 +12,8 @@ Setup
     - Don't do it at bootom
     - For finding range - Take 30 min chart on weekly expirt
     - Check for major Resistance and draw lines for range
+
+    - SD can be used for 30 min/60 min and daily charts
     
 
     Remedy/Exit 
@@ -61,4 +65,15 @@ Fibnoacii Extenstion Precentages
 
 Fib Retrachment - is always applied on correction (Correction)
 Fib Extension is always on Impulse
+
+
+Turtle Trading Session4 - Bank Nifty
+Advance Decline Ratio
+    - If the spikes are there, we can look for buy trade 
+    - It shows new money infused in the market  
+    - Should be seen on Daily chart
+    - it indicates buy signals
+
+
+
 

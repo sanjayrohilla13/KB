@@ -133,7 +133,7 @@ Method
     - Look for Leftout candle (Candle not touching any of the line)
     - Candle should be completly out of the 3 DEMA and 5 DEMA
     - It can be any colour
-    - If next candle is Green candle, Buy on the Red Candle Close
+    - If next candle is Green candle, Buy on the Green Candle Close
     - SL will be close of previous close (Leftout Candle)/Current Candle (whichever is higher)
     - Plot 20 DMA, if the disection of 20 DMA is close to the buy or sell, don't take the trade because this setup was to get the price to the intersection of the 20 DMA and 3 DEMA and 5 DEMA.
 
@@ -162,4 +162,15 @@ Rubberband Reversal Stratergy
     - Start a Sell trade if the price closes below the resistance line with SL of the the Breakout close
     - Target will be on the Bottom between the Recent tops
 
+Turtle Trading Session4 - Bank Nifty
 
+OBV based 30 Min Chart Trading
+    - Applied on Bank Nifty and Nifty
+    - Can be used on 10m, 30m and 1 Hour
+    - If previous day high is broke in the OBV, Buy is initiated
+    - Exit will come when the Previous day of high is broke or Support and Resitance can be used
+    - ATR can be used for SL
+
+
+Correation Coffecient with Bank Nifty
+    - 
