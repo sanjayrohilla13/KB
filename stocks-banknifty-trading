@@ -1,3 +1,15 @@
+Turtle Trading Session4 - Bank Nifty
+
+OBV based 30 Min Chart Trading
+    - Applied on Bank Nifty and Nifty
+    - Can be used on 10m, 30m and 1 Hour
+    - If previous day high is broke in the OBV, Buy is initiated
+    - Exit will come when the Previous day of high is broke or Support and Resitance can be used
+    - ATR can be used for SL
+
+Correation Coffecient with Bank Nifty
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 Options are inherently risky
 
 Selling Strangle
@@ -14,7 +26,6 @@ Setup
     - Check for major Resistance and draw lines for range
 
     - SD can be used for 30 min/60 min and daily charts
-    
 
     Remedy/Exit 
         - If the combined premium is increasing the average, then either exit of take remedial  
@@ -73,7 +84,3 @@ Advance Decline Ratio
     - It shows new money infused in the market  
     - Should be seen on Daily chart
     - it indicates buy signals
-
-
-
-

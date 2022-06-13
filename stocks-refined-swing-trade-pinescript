@@ -1,0 +1,61 @@
+// This source code is subject to the terms of the Mozilla Public License 2.0 at https://mozilla.org/MPL/2.0/
+// © sanjayrohilla
+
+//@version=5
+strategy("RST", overlay=true)
+
+//Get user input
+tradeQty = input(defval=50, title="Trade Qty")
+
+//Entry Conditions
+//Bearish Trend
+threeRed = close[2] < open[2] and close[3] < open[3] and close[4] < open[4]
+
+//Islolated Candle
+ema3 = ta.ema(close, 3)
+ema5 = ta.ema(close, 5)
+
+// isolatedCandle = high[1] < ema3[1] and high[1] < ema5[1]
+isolatedCandle = high < ema3 and high < ema5
+
+//green Candle
+
+greenCandle = close > open 
+
+// // Entry condition
+// var entryCondition = false
+// //if threeRed and isolatedCandle and greenCandle
+// if isolatedCandle
+//     entryCondition := true
+
+// //Exit Variables
+// //tradeDay5 = close[5] > open[5] and close[5] >= open[6] and open[5] <= close[6]
+
+sl=low
+
+// //Execute the trade
+var day_count = 1
+
+strategy.entry(id="long", direction=strategy.long, qty=tradeQty, when = isolatedCandle)
+
+if strategy.position_size != 0
+    day_count  := day_count  + 1
+    
+// //exitPosition := day_count == 5 or low < sl
+var exitPosition = day_count < 5 ? false : true
+
+strategy.exit(id="exit_long", from_entry="long", qty=tradeQty, stop=sl, limit=close, when = exitPosition)
+
+// strategy.exit(id="exit_long", from_entry="long", qty=tradeQty, limit=close, when = exitPosition)
+
+if strategy.position_size == 0
+    day_count  := 1
+
+plot(series=ema3, color=color.black)
+plot(series=ema5, color=color.red)
+
+
+
+
+
+

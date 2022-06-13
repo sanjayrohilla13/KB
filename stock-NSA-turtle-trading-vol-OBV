@@ -3,12 +3,14 @@ OBV - On Balance Volume
     - Volume increase with price (Normal Understanding)
     - Volume decrease with fall in price (Normal Understanding)
  - Exception
+
  Selling Climax
     - Increase in volume with drop in price - It shows panic in retailer
         * wait for the volume to get down to normal or low
         * Buy on green candle and put a stop loss on the lowest low
         * Wait for pull back
         * Target will be next resistance
+        
  Volume Breakout
     - Increase in volume with breakout
     - It confirms the pattern

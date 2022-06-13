@@ -1,0 +1,4 @@
+Docker start command starts the container but won't show the messages to user terminal;however by using 
+docker start -a <container id> we can get the output on user terminal
+
+docker run command start the container and direct the system output to user terminal by default.

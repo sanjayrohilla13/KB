@@ -1,0 +1,31 @@
+1. Get both sonarqube and jenkins up and running
+2. Install the SonarQube Scanner plugin in the jenkins  
+    a. Dashboard -> Manage Jenkins -> Manage Plugins -> Search <SonarQube Scanner for Jenkins>
+    b. Install the Plugins
+3. Configure Jenkins in Global Tool Configuration
+    a. Dashboard -> Manage Jenkins -> Global Tool Configuration -> Look for <SonarQube Scanner>   
+    b. Name = SonarQube 
+    c. Select Install Automatically
+    d. Select version
+    e. Save Changes
+4. Configure System
+    a. Dashboard -> Manage Jenkins -> Configure System - Look for <SonarQube Servers>
+    b. Add new Servers
+    c. Name = SonarQube
+    d. Server URL = http://192.168.1.109:9000 (Server URL where SonarQube is running)
+    e. Leave the authentication blank
+5. Setup the Scanning Job
+    a. Create Job in Jenkins
+    b. Go to the build section
+    c. Select Build Action as <Execute SonarQube Scanner>
+    d. Leave taks to run as blank
+    e. JDK (don't touch)
+    f. path to project properties as blank
+    g. Analysis Properites
+        sonar.projectKey=sonarqube
+        sonar.login=admin
+        sonar.password=admin
+        sonar.exclusions=vendor/**, storage/**, resources/**,, **/*.java (used for java project)
+        sonar.sources=/var/jenkins_home/workspace/sonarqubedemo
+        sonar.host.url=http://192.168.XXX.XXX:9000
+    h. Trying runnig the scan by building the job

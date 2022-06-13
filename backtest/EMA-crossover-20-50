@@ -1,0 +1,25 @@
+// This source code is subject to the terms of the Mozilla Public License 2.0 at https://mozilla.org/MPL/2.0/
+// © sanjayrohilla
+
+//@version=4
+
+strategy("Simple Moving Average Stratergy", overlay=true)
+
+ema20 = ema(close, 2)
+ema50 = ema(close, 5)
+
+long = ema20 > ema50
+short = ema20 < ema50
+
+plot(ema20, title="2", color=color.red, linewidth=3)
+plot(ema50, title="5", color=color.blue,linewidth=3)
+
+start = timestamp(2020, 1, 1, 0, 0)
+end = timestamp(2022, 5, 20, 0, 0)
+
+if time >= start and time <= end
+    strategy.entry("long", strategy.long, 1000.0, when = long)
+    strategy.entry("short", strategy.short, 1000.0, when = short)
+
+strategy.close("long", when = short)
+strategy.close("short", when = long)

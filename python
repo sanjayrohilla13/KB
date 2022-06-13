@@ -1,7 +1,504 @@
+from ast import Global
+from asyncio.unix_events import SelectorEventLoop
+from asyncore import file_dispatcher, loop, read, write
+from csv import list_dialects
+from fileinput import close
+from importlib.util import module_for_loader
+from multiprocessing.dummy import JoinableQueue
+from operator import itemgetter
+from pickletools import read_string1
+from platform import python_branch
+import readline
+from statistics import mode
+from subprocess import list2cmdline
+import sys
+import this
+from time import time
+from turtle import write_docstringdict
+import types
+from typing import List, Type
+from unicodedata import name
+from unittest import FunctionTestCase
+from cairo import OPERATOR_HSL_LUMINOSITY, ToyFontFace
+from click import argument
+from more_itertools import partition, value_chain
+from numpy import append, binary_repr, concatenate
+from pyrsistent import immutable
+
+
+Installing Python
 alpine linux
     - Installing pip (PIP Installs Packages)
         - apk add py3-pip
         - This will install pip  in the alpine system
     - Updatating pip in alpine linux
         - pip install --upgrade pip
+
+
+Core Python Concepts
+    Blocks in the Python is done by white spacing. For white spacing
+
+        1. Prefer four spaces
+        2. Never mix spaces and tabs
+        3. Be consistent on consecutive lines
+        4. Only deviation is to improve readability
+
+Data Types in Python
+    1. Integer
+    2. Float
+    3. Bool
+    4. NoneType
+
+Relation operators
+    ==
+    !=
+    <
+    >
+    <=
+    >=
+
+Python Operators
+    / floating division operator returns float value
+    // integer division operator returns integer value
+
+Control Flow
+    if
+        if x> y:
+            print("x is greater")
+        else:
+            print("y is greater")
+        elif:
+            print(Both are equal)
+
+    While Loop    
+    while
+        while <boolean Expression>:
+            Stat1   (proceeds when value results in true)
+            stat2
+            stat3
+
+        c=5
+        while c:
+           print(c)
+           c-=1
+
+
+    If you need to use any loop for checking the condition at the end of the loop like repeat until
+    use If condition inside the loop;
+        while True:
+...         number = input()
+...         if int(number) % 7 == 0:
+...             break
+    For Loop
+        for item in iteratable:
+            body
+
+    colors = {"crismon": "Blue", "coral":"Black", "teal": "green"}
+    for color in colors:
+        print(color, colors[color])
+
+Scaler Types in Python
+str 
+    - Strings are represented by str
+    - String functions can be checked using help(str)
+    - without assingnment functions used different variable e.g a and str.capitalize(a) using different variables
+
+Lists
+    - represented by square brackets []
+    - Empty list can be created by a =[]
+    - elements can be mix of data Types
+    - append method is used for appending elements at the back of the list e.g. a.append(sanjay)
+    - list can be described in multiline sequence using the below format:
+        a = ["rose",
+             "marigold",
+             "pure flower",]
+
+dict
+    - Dictionary are termed as assiciate arrays and maps in other languages; however, they are 
+      completely fundamental to the python.
+    - represented by {}
+    - contact_numbers = {}
+    - elements will be stored in key value pairs like {"Sanjay": 0456591272', "Chandrika": 0478598922}
+    - elements can be referenced using the key of the Dict like contact_numbers["sanjay"]
+    - append and reading can be done using the referencing
+
+
+Using Standard Library
+    - import statement is used for using the standard library. e.g import math
+    - Import statment can be used in 3 ways:
+        1. Using Standard Library
+           - Import the standard library
+           - Functions are called using the standard library. e.g math.sqrt(10)
+           - Help can be obtained on standard library level. e.g. help(math)
+           - or function level. e.g. help(math.sqrt)
+           - press q to exit the help
+        2. Importing the standard function
+            - Function can be called without referencing standard library. e.g.
+                from math import factorial
+                factorial(10)
+        3. Importing the standard function as required name
+            - Functions can be renamed if required. e.g. 
+                from math import factorial as fac
+                fac(10)
+         
+
+functions 
+    - functions are defined by def keyword and list of arguments.
+      e.g. def square(x)
+            return(x*x)
+    - Functions need not return any value; however, it is good to create functions for returning values
+    - functions can be called inside other functions and considered good practices.
+    - __name__ is pronounced as "dunder name"
+    - two blank lines are recommended between the functions in python
+
+    -default values can be defined to the function
+        def banner(message, border='-'):
+        * Argumnets with default values must come after those without default values.
+        Becuase default value is provided, so it is caller choice to use the default (by not providing) or 
+        supplying their own parameter.
+        >>> def border(message, border='-'):
+        ...     line = border * len(message)
+        ...     print(line)
+        ...     print(message)
+        ...     print(line)
+        ... 
+        >>> border('sanjay')
+        ------
+        sanjay
+        ------
+        >>> border('sanjay', border='*')
+        ******
+        sanjay
+        ******
+        >>> border('sanjay', border='$')
+        $$$$$$
+        sanjay
+        $$$$$$  
+
+        * in the above example, 
+            message string is positional argument 
+            border is Keyword argument
+    - Default Value Evaluation
+    - Remember that def is a statement that is executed at run time
+    - Default arguments are evaluation when def is executed.exec
+    - default arguments in the python functions are evaluated only when the function is first called. 
+        - Immmuatable variables have no impact because of this
+        - mutable variables can play d ifferently for this 
+        >>> def show_default(arg=time.ctime()):
+        ...     print(arg)
+        ... 
+        >>> show_default()
+        Sun Jun 12 13:55:01 2022
+        >>> show_default()
+        Sun Jun 12 13:55:01 2022
+        >>> show_default()
+        Sun Jun 12 13:55:01 2022
+         In the above case is evaluation first time when the function was called. going forward it is 
+         just being used.
+         This problem can be overcome by assinging none to the argument.argument
+         >>> def show_default(arg=None):
+         ...     if arg==None:
+         ...             arg=time.ctime()
+         ...             print(arg)
+         ... 
+         
+         >>> show_default()
+         Sun Jun 12 14:05:54 2022
+         >>> show_default()
+         Sun Jun 12 14:05:56 2022
+         >>> show_default()
+         Sun Jun 12 14:05:58 2022
+
+
+    * Type System for the python
+        - Type declarataions in python are unnecessary in python. 
+        - Names can be rebound as necessary to objects of any type.
+        - We can define a function in the python with defining a type system and function will 
+          work on a variety of data type without any issues.
+
+            >>> def add(a,b):
+            ...     value = a + b
+            ...     print(value)
+            ... 
+            >>> add(1,2)
+            3
+            >>> add('sanjay','kumar')
+            sanjaykumar
+            >>> x = [1,2]
+            >>> y=[6.5]
+            >>> add(x,y)
+            [1, 2, 6.5]
+            we can see the function is running well with interger, string and lists.list
+
+
+Scopes in python_branch
+        The varibale is python can be at L E G B Level:
+        Local       Inside the current function
+        Enclosing   Inside enclosing FunctionTestCase
+        Global      At the tipe level of the module 
+        Built-in    In the sepecial Builtins module
+
+Tuples
+    Immuatable list are known as Tuples
+    defined by ()
+    e.g x = (1,2,3,45)
+
+Sting
+    function used with string types
+    len(), join(), count etc. 
+    List can be found using help(str)
+        for Join function seperator can be defined while concatenate
+            >>> colors = ';'.join(['sanjay', 'kumar', 'rohilla'])
+            >>> colors
+            'sanjay;kumar;rohilla'
+            >>> colors.split(';')
+            ['sanjay', 'kumar', 'rohilla']
+    partition
+    >>> "unforgettable".partition('forget')
+    ('un', 'forget', 'table')
+
+    format
+    >>> "My Name is {0} and my age is {1}".format("sanjay", 42)
+    'My Name is sanjay and my age is 42'
+    Field number can be used multiple times e.g
+    >>> "My Name is {0} and my age is {1}. My brother is also {1} years old".format("sanjay", 42)
+    'My Name is sanjay and my age is 42. My brother is also 42 years old'
+
+    If field name are being used only once and in same order, field numbers can be ommitted.ord
+    >>> "My Name is {} and my age is {}".format("sanjay", 42)
+    'My Name is sanjay and my age is 42'
+
+    Expresssion in the string can be implemeted using f-string
+    >>> "my annual income is {12*5000}"
+    'my annual income is {12*5000}'
+    >>> f"my annual income is {12*5000}"
+    'my annual income is 60000'
+    
+    Range:
+    range(start, stop, step)
+    >>> range(5)
+    range(0, 5)
+    >>> range(1,10)
+    range(1, 10)
+    >>> x=list(range(1,10))
+    >>> x
+    [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    >>> x=list(range(1,10,3))
+    >>> x
+    [1, 4, 7]
+
+    a good way is by using for loop
+    >>> for i in range(10):
+    ...     print(i)
+    ... 
+    0
+    1
+    2
+    3
+    4
+    5
+    6
+    7
+    8
+    9
+
+List
+Elements referencing in list
+    >>> list1 = [1,2,4,5,6,7,8,9]
+    Reading 2nd Element of the Lists
+    >>> list1[1]
+    2
+    Reading last element of the list
+    >>> list1[-1]
+    9
+    0 and -0 indexes are same in python
+    >>> list1[-0]
+    1
+List Slicing in Lists
+    >>> list1[1:2]
+    [2]
+    >>> list1[1:4]
+    [2, 4, 5]
+    >>> list1[1:-1]
+    [2, 4, 5, 6, 7, 8]
+    >>> list1[1:]
+    [2, 4, 5, 6, 7, 8, 9]
+
+Copying the list without references 
+    >>> list1[1:]
+    [2, 4, 5, 6, 7, 8, 9]
+    >>> list1[:]
+    [1, 2, 4, 5, 6, 7, 8, 9]
+    >>> list2=list1[:]
+    >>> list1 is list2
+    False
+    >>> list1 == list2
+    True
+    >>> 
+Also, 
+    list2 = list1.copy() will also copy the list1 in list2 without creating reference to list1
+    list2 = list(s) also will do the same.
+
+    adding the item                     <list_name>.append(value)
+    removing the item  by value         <list_name>.remove(value)
+    removing the item  by position      del <list_name>[position]
+    find the index of the element value <list_name>.index(value)
+    Finding the number of occurences    <list_name>.count(value)
+    Testing the element presence        element in <list_name>
+    Testing the element absence         element not in <list_name>
+    inserting item at particular position  <list_name>.insert(pos,value) (can't use without index)
+    inserting an item in the end        list1.append(value)
+    sorting the list                    list1.sort()
+    reversing the list                  list1.reverse()
+
+
+Adding the list will create a new list without disturbing the existing list
+list3 = list1 + list2
+
+However, augmented assignment (list1 += [2,3,4]) will modify the existing list.
+similarly <list_name>.extend will also modify the same list.
+
+Dictionary Data Type
+    Key value pairs seperated by colon.
+    Key should be unique in a dict; however, the values can be duplicated.
+    Key object must be immutable
+
+Set are used for set operations 
+    represented by {}
+    operations performed on set data type are union, difference, intersection etc,
+
+Command line arguments are passed in the python using sys standard library
+    - import sys standard library
+            import sys
+    - get the user input using argv list
+            user_var = sys.argv[1] # argv[0] represents the file name
+                    
+Docstrings:
+    - docstring are used in python to documentation (Help) for the module
+    - declared with """ Doc String   """
+    - Anything written in Doc String will be available during help(module_Name) command execution
+
+Comments:
+     - begin with "#" symbol and last until the end of the lines
+     - 
+    
+
+Variable assingnment
+    - In python, a storage with desired data type is assigned to the variables
+    - e.g. x = 50 will create a int 50 storage and assign the same to the x variable    
+    - Python will not modify the storage wrt to change the in value of the variable
+        e.g. x = x + 50  will create one more int storage with value 50 and add the existing reference to new
+             reference and store that in a new storage and assign the reference to x. Later Python garbage collector
+             will collect these unused values.
+    
+    - for x = y, the storage defined for python will be tied to the y as well (not duplicated). Hence,
+       any change in the y will change the value of x as well and vice versa.
+       This can be confirmed using the id function or is operator for knowing the location of the variable and Python assigns the reference to the new variable.
+        >>> list1=[4,5,6]
+        >>> list2=list1
+        >>> list1[1]=21
+        >>> list1
+        [4, 21, 6]
+        >>> list2
+        [4, 21, 6]
+        >>> id(list1)
+        140136275187520
+        >>> id(list2)
+        140136275187520
+        >>> 
+        >>> list1 is list2
+        True
+    - However, defining the lists with same values will not create same reference.
+        >>> list1 = [4,5,6]
+        >>> list2 = [4,5,6]
+        >>> list1 is list2
+        False
+        >>> id(list1)
+        140136257406208
+        >>> id(list2)
+        140136253690880
+
+    - Function arguments are transferred using pass by object reference.
+        It means if list A is passed to the function, the reference to the list A will be copied inside the 
+            function. If any changes done to the list, same changes will appear in the list A.
+                >>> m = [9, 15, 24]
+                >>> def modify(k):
+                ...     k.append(10)
+                ...     print("k = ",k)
+                ... 
+                >>> modify(m)
+                k =  [9, 15, 24, 10]
+                >>> m
+                [9, 15, 24, 10]
+                10 is added to both the lists m and k
+    - References to objects are copied, not the objects themselves.
+        It means when the parameters are passed only references gets passed not the variable itself.
+                 >>> def copylist(d):
+                ...     d = [25, 36 , 81]
+                ...     print("d = ", d)
+                ... 
+                >>> copylist(m)
+                d =  [25, 36, 81]
+                >>> m
+                [9, 15, 24]
+             
+
+    
+    Files Handling in python
+
+    File Definition:
+
+        - f = open('wasteland.txt', mode='wt', encoding='utf-8')
+
+        - 1st argument is file name
+        - mode refers to w(writing) t (text)
+          openmodes()
+            Modes:
+            'r'     read
+            'w'     write
+            'a'     append
+            Selector
+            'b'     binary
+            't'     text
+
+        - Encoding refers to the encoding method. If none is specified, the default method will be taken by your os.bytearray
+    For writing the file 
+        f.write("text is followed")
+        \n is used for new line and it is user responsiblity to enter the new line chararcter
+    closing the file
+        File to become available to other processes, file must be closed
+        f.close()
+
+        Reading the file
+        - open the file in read mode
+            g = open("sanjay.txt", mode='rt', encoding='utf-8')
+            g.read(32)  (argument for the read method will be the numbers of characters to read)
+                        read operation will advance the pointer by the given number of characters.
+            g.read()    reading the whole/remaining file in one shot.
+            g.close()   closing the file will bring the pointer back to 0.
+            g.seek(0)   bringing the file pointer back to 0 (initial)
+            readline    returns the whole line (where a line terminator is added to the file)
+            readlines   will return all the file in a list
+            writelines   used to append the multiple lines in the file    
+
+            h.writelines(["The quick brown fox jumps right over the lazy dog.\n
+                           The fox was very cunning and smart. \n 
+                           The fox fall into the well."])
+
+     Example of file reading        
+            import sys
+            f = open(sys.argv[1], mode = 'rt', encoding = 'utf-8')
+            
+            for lines in file:
+                sys.stdout.write(line)
+            f.close
+
+            
+
+
+
+
+
+
+
         

@@ -1,0 +1,44 @@
+study("Comparative Relative Strength", shorttitle="CRS") 
+a = tickerid 
+b = input("SPX500", type=symbol) 
+as = security(a, period, close) 
+bs = security(b, period, close) 
+plot(as/bs, title="CRS", color=gray) 
+len = input(10) 
+plot(sma(as/bs, len), color=navy)
+
+
+Strategy
+Not completed
+// This source code is subject to the terms of the Mozilla Public License 2.0 at https://mozilla.org/MPL/2.0/
+// © sanjayrohilla
+
+//@version=5
+strategy("CMO")
+
+//Get user input
+tradeQty = input(title="Trade Qty", defval=100)
+b = input(title="Compare With", defval="SPX500") 
+len = input(title="CSI Length", defval=10) 
+
+myCMO = ta.cmo(close, 10)
+
+a = syminfo.tickerid
+
+as1 = request.security(a, timeframe.period, close) 
+bs1 = request.security(b, timeframe.period, close) 
+//plot(as1/bs1, title="CRS", color=red) 
+plot(as1/bs1) 
+
+
+exitTrade = myCMO < -25
+enterTrade = myCMO > 25
+
+strategy.entry("long", strategy.long, qty=tradeQty, when = enterTrade)
+strategy.exit("Exit Long", from_entry="long",qty=tradeQty, limit=close, when = exitTrade)
+//plot(ta.obv, color=color.yellow)
+plot(myCMO)
+hline(25)
+hline(-25)
+//plot(ta.sma(as1/bs1, len), color=black)
+plot(ta.sma(as1/bs1, len))

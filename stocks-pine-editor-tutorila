@@ -1,0 +1,68 @@
+Defining version of the compiler
+//@version=5 
+
+Ploting line graph for the close prices
+
+plot(close)
+
+variables
+
+    = used for assingment
+    := overriding existing value
+    data type is optional
+    var will convert the varibale in persistent varaible
+
+Indicator
+    Tells general nature of the script as this is a study Indicator
+    It allows different subset of functions to work with.
+
+    To find the parameters for the indicator, hover the mouse over the indicator text.
+    , is used to seperate the parameters
+    ctrl+click for opening the documentation for the indicator parameters
+
+Indicator Parameters
+        title ->
+        shorttitle ->
+        overlay => to plot the indicator on the chart. eg, overlay=true
+        format -> Shows the selected value next to the parameters. eg. format
+        precision -> Shows the decimal precision 
+        scale -> To plto the prices on the desired side
+        max_bars_back=10 -> this allows the script to access the number of defined bars from the current bar.
+        timeframe="D" -> Graph plotting timeframe.
+
+
+Namespace
+        Namespace group all the similar functions under one class.
+        for example all the technical analysis variables are parked under ti namespace.
+        example rsi = ta.rsi(close,14)
+        ctrl + space is used for getting the functions for the Namespace
+        other name spaces str for string, ta for technical analysis, stratergy namespace, request
+
+Price Series
+        open, high, low, close are the default price values
+        we can plot these values and any other indicator values on the chart
+        historical data can be reference by [10] (for 10 days)
+            e.g. atr = ta.atr(14)
+                 atr10 = atr[10] -> show the atr of 10 days ago
+
+
+        1. Two types of number are supported by pines script integertype and floattype
+            you can use exponential values like 0.1e2 -> 01 X 10's power 2
+        2. Boolean
+        3. colorType in build data type e.g color.red. color.yellow
+                you can use hexadecimal color as well
+                also rgb color is also allowed
+        5. String - > need to use "'" quotes or double quotes (") around a string value
+
+
+Alerts also can be created to trigger on real time data
+
+
+         
+
+
+
+
+
+
+
